@@ -5,9 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>S-VolSDF: Sparse Multi-View Stereo Regularization of Neural Implicit Surfaces</title>
-
-    <meta name="description" content="">
+    <title>S-VolSDF</title>
+    <meta name="description" content="Project page for S-VolSDF: Sparse Multi-View Stereo Regularization of Neural Implicit Surfaces">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -15,23 +14,51 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.css">
     <link rel="stylesheet" href="https://unpkg.com/image-compare-viewer/dist/image-compare-viewer.min.css">
     <link rel="stylesheet" href="css/app.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-
+    <!-- <link rel="stylesheet" href="css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.3/clipboard.min.js"></script>
     <script src="https://unpkg.com/image-compare-viewer/dist/image-compare-viewer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        // Download video only when active (speedup website loading & network traffic)
+        $(".carousel").on('slide.bs.carousel', function(ev) {
+            let slides = $(this).find('.carousel-item');
+            let vid = slides[ev.to].querySelectorAll('video')[0];
+            let isPlaying = vid.currentTime > 0 && vid.readyState > 2;
+            if(!isPlaying) {
+                vid.play();
+            }
+        });
+
+        $(window).on('ready load resize', function() {
+            let carousel_width = $(".carousel").width();
+            let carousel_height = 0.7619047619047619 * carousel_width;
+            $(".carousel video").height(carousel_height);
+        });
+    </script>
 </head>
 
 <body>
-    <div class="container" id="main">
-        <div class="row">
-            <h1 class="col-12 text-center">S-VolSDF: Sparse Multi-View Stereo Regularization of Neural Implicit Surfaces</h1>
+    <div class="container" id="main" style="width: 100%; max-width: 1500px;">
+        <!-- title -->
+        <div class="row mb-2 mt-4">
+            <h1 class="col-md-12 text-center">
+                <b>S-VolSDF</b>: Sparse Multi-View Stereo Regularization of Neural Implicit Surfaces <br>
+                <small>
+                    ICCV 2023
+                </small>
+            </h1>
         </div>
+
+        <!-- authors -->
         <div class="row">
-            <div class="col-md-12 text-center">
-                <ul class="list-inline">
+            <div class="mx-auto text-center">
+                <ul class="list-inline mb-0">
                     <li>
                         <strong>Haoyu Wu</strong>, 
                         <a href="https://alexgraikos.github.io/">Alexandros Graikos</a>, 
@@ -43,16 +70,17 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1 text-center">
-                <ul class="nav nav-pills nav-justified">
-                    <li>
+        <!-- links -->
+        <div class="row mb-2">
+            <div class="mx-auto text-center">
+                <ul class="nav">
+                    <li class="nav-item text-center">
                         <a href="https://arxiv.org/abs/2303.17712/">
                         <image src="images/paper.jpg" height="60px">
                             <h4><strong>Paper</strong></h4>
                         </a>
                     </li>
-                    <li>
+                    <li class="nav-item text-center">
                         <a href="#">
                         <image src="images/github.png" height="60px">
                             <h4><strong>Code (Coming Soon)</strong></h4>
@@ -62,91 +90,88 @@
             </div>
         </div>
 
-        <div class="container">
-            <div class="row">
-              <div class="col-12">
-                <h2>Multiview 3D Reconstructions</h2>
-                  <hr style="margin-top:0px">
-                <p class="text-left">
-                    Examples of reconstructed 3D geometry and rendering of novel views from the two multiview datasets <a href="http://roboimagedata.compute.dtu.dk/?page_id=36" target="_blank">DTU</a> and <a href="https://github.com/YoYo000/BlendedMVS" target="_blank">BlendedMVS</a> with only <b>3 input images</b>.   
-                </p>
-              </div>
+        <!-- results -->
+        <div class="row mb-3 pt-2">
+            <div class="col-md-8 mx-auto">
+            <h2>
+                Results
+                <hr style="margin-top:0px">
+            </h2>
+            <p class="text-justify">
+                Examples of reconstructed 3D geometry and rendering of novel views from the two multiview datasets <a href="http://roboimagedata.compute.dtu.dk/?page_id=36" target="_blank">DTU</a> and <a href="https://github.com/YoYo000/BlendedMVS" target="_blank">BlendedMVS</a> with only <b>3 input images</b>.   
+            </p>
+            <div style="position:relative;padding-top:56.25%;">
+                <iframe src="https://www.youtube.com/embed/3_4PeVHWliY" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
             </div>
-            <!-- media -->
-            <div class="row">
-              <div class="col-12 text-center">
-                    <div style="position:relative;padding-top:56.25%;">
-                        <iframe src="https://www.youtube.com/embed/3_4PeVHWliY" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
-                    </video>
-                    </div>
-              </div>
-            </div>
-
-            <br><br>
-            <!-- title -->
-            <div class="row">
-              <div class="col-12 text-center">
-                  <h3>Novel View Synthesis - DTU</h3>
-              </div>
-            </div>
-            <!-- media -->
-            <div class="row">
-              <div class="col-12 text-center">
-                <img class="img-fluid" width="100%" src="results/DTU-nvs.jpg" alt="fea-evo">
-              </div>
-            </div>
-
-            <br><br>
-            <!-- title -->
-            <div class="row">
-              <div class="col-12 text-center">
-                  <h3>Mesh Visualization - DTU</h3>
-              </div>
-            </div>
-            <!-- media -->
-            <div class="row">
-              <div class="col-12 text-center">
-                <img class="img-fluid" width="100%" src="results/DTU-mesh.jpg" alt="fea-evo">
-              </div>
-            </div>
-
-            <br><br>
-            <div class="row">
-              <div class="col-12 text-center">
-                  <h3>Novel View Synthesis & Mesh Visualization - BlendedMVS</h3>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-12 text-center">
-                <img class="img-fluid" width="100%" src="results/BMVS.jpg" alt="fea-evo">
-              </div>
-            </div>
-
-            <br><br>
-            <div class="row">
-              <div class="col-12 text-center">
-                  <h3>Point Cloud visualization - DTU</h3>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-12 text-center">
-                <img class="img-fluid" width="100%" src="results/DTU-pcd.jpg" alt="fea-evo">
-              </div>
             </div>
         </div>
 
-        <div class="container">
-            <div class="row">
-                <div class="col-10">
-                    <h2>
-                        Acknowledgements
-                    </h2>
-                    <p class="text-justify">
-                        The website template was borrowed from <a href="https://jonbarron.info/mipnerf360/">Mip-NeRF 360</a> and <a href="https://lioryariv.github.io/volsdf/">VolSDF</a>.
-                    </p>
+        <!-- comparisons -->
+        <div class="row mb-3 pt-2">
+            <div class="col-md-8 mx-auto">
+                <h2>
+                    Comparisons
+                    <hr style="margin-top:0px">
+                </h2>
+                <div id="my_casual_demo" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+
+                        <div class="carousel-item active" data-interval="8000">
+                            <div class="text-center">
+                                <h3>Novel View Synthesis - DTU</h3>
+                            </div>
+                            <img class="img-fluid" width="100%" src="results/DTU-nvs.jpg" alt="fea-evo">
+                        </div>
+
+                        <div class="carousel-item" data-interval="8000">
+                            <div class="text-center">
+                                <h3>Mesh - DTU</h3>
+                            </div>
+                            <img class="img-fluid" width="100%" src="results/DTU-mesh.jpg" alt="fea-evo">
+                        </div>
+
+                        <div class="carousel-item" data-interval="8000">
+                            <div class="text-center">
+                                <h3>Novel View Synthesis & Mesh - BlendedMVS</h3>
+                            </div>
+                            <img class="img-fluid" width="100%" src="results/BMVS.jpg" alt="fea-evo">
+                        </div>
+
+                        <div class="carousel-item" data-interval="8000">
+                            <div class="text-center">
+                                <h3>Point Cloud visualization - DTU</h3>
+                            </div>
+                            <img class="img-fluid" width="100%" src="results/DTU-pcd.jpg" alt="fea-evo">
+                        </div>
+
+                    </div>
+                <a class="carousel-control-prev" href="#my_casual_demo" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#my_casual_demo" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
                 </div>
             </div>
         </div>
+
+        <!-- acknowledgement -->
+        <div class="row mb-3 pt-2">
+            <div class="col-md-8 mx-auto">
+                <h2>
+                    Acknowledgements
+                    <hr style="margin-top:0px">
+                </h2>
+                <p class="text-justify">
+                    This work was supported in part by the NASA Biodiversity program (Award 80NSSC21K1027), and NSF grant IIS-2212046.
+                <br>We also thank Alfredo Rivero for invaluable insights and careful proofreading.
+                <br>The website template was borrowed from <a href="https://jonbarron.info/mipnerf360/">Mip-NeRF 360</a> and <a href="https://lioryariv.github.io/volsdf/">VolSDF</a>.
+                </p>
+            </div>
+        </div>
+
     </div>
 </body>
 
