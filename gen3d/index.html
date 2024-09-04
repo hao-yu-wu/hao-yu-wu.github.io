@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>Gen3D</title>
+    <meta name="description" content="Project page for Direct and Explicit 3D Generation from a Single Image">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.1/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/image-compare-viewer/dist/image-compare-viewer.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.3/clipboard.min.js"></script>
+    <script src="https://unpkg.com/image-compare-viewer/dist/image-compare-viewer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        // Download video only when active (speedup website loading & network traffic)
+        $(".carousel").on('slide.bs.carousel', function(ev) {
+            let slides = $(this).find('.carousel-item');
+            let vid = slides[ev.to].querySelectorAll('video')[0];
+            let isPlaying = vid.currentTime > 0 && vid.readyState > 2;
+            if(!isPlaying) {
+                vid.play();
+            }
+        });
+
+        $(window).on('ready load resize', function() {
+            let carousel_width = $(".carousel").width();
+            let carousel_height = 0.7619047619047619 * carousel_width;
+            $(".carousel video").height(carousel_height);
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container" id="main" style="width: 100%; max-width: 1500px;">
+        <!-- title -->
+        <div class="row mb-3 mt-4">
+            <div class="col-md-10 mx-auto text-center">
+                <h1>Direct and Explicit 3D Generation from a Single Image</h1> 
+                <h3 style="color:#5a6268;"> In Submission </h3>
+                <hr>
+                <h5>
+                    <a href="https://hao-yu-wu.github.io/" target="_blank">Haoyu Wu</a>,
+                    <a href="https://hao-yu-wu.github.io/gen3d" target="_blank">Meher Gitika Karumuri</a>,
+                    <a href="https://hao-yu-wu.github.io/gen3d" target="_blank">Chuhang Zou</a>,
+                    <a href="https://hao-yu-wu.github.io/gen3d" target="_blank">Seungbae Bang</a>,
+                    <a href="https://hao-yu-wu.github.io/gen3d" target="_blank">Yuelong Li</a>,
+                    <a href="https://www3.cs.stonybrook.edu/~samaras/" target="_blank">Dimitris Samaras</a>,
+                    <a href="https://sunilhadap.github.io/" target="_blank">Sunil Hadap</a>,
+                </h5>
+                <h5>Stony Brook University, Amazon</h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-10 mx-auto text-center">
+                <p>
+                    <a class="btn btn-secondary btn-lg" href="https://hao-yu-wu.github.io/gen3d" role="button">Paper</a>
+                </p>
+            </div>                        
+        </div>
+
+        <!-- video -->
+        <div class="row mb-3 pt-2">
+            <div class="col-md-10 mx-auto text-center">
+            <div style="position:relative;padding-top:56.25%;">
+                <iframe src="https://www.youtube.com/embed/SucVXcm_3sY" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+            </div>
+            <p class="text">
+                We compare against baseline methods and shows results of our approach.
+            </p>
+            </div>
+        </div>
+
+        <!-- acknowledgement -->
+        <div class="row mb-3 pt-2">
+            <div class="col-md-10 mx-auto">
+                <h2> Acknowledgements </h2>
+                <p class="text-left">
+                    <ul>
+                        <li>This work was done during my internship at Amazon.</li>
+                        <li>The website template was borrowed from <a href="https://jonbarron.info/mipnerf360/">Mip-NeRF 360</a> and <a href="https://lioryariv.github.io/volsdf/">VolSDF</a>.</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+<script>
+    const viewers = document.querySelectorAll(".image-compare");
+    viewers.forEach((element) => {
+        let view = new ImageCompare(element, {
+            hoverStart: true,
+            addCircle: true
+        }).mount();
+    });
+
+    $(document).ready(function () {
+        var editor = CodeMirror.fromTextArea(document.getElementById("bibtex"), {
+            lineNumbers: false,
+            lineWrapping: true,
+            readOnly: true
+        });
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    });
+</script>
+
+</html>

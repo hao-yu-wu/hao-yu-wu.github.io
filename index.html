@@ -24,7 +24,7 @@
                 Hi, I am Haoyu Wu (吴浩宇), a Ph.D. candidate at <a href="https://www.stonybrook.edu/">Stony Brook University</a>, supervised by <a href="https://www3.cs.stonybrook.edu/~samaras/">Prof. Dimitris Samaras</a>. I received my bachelor's degree from <a href="https://www.cuhk.edu.cn/en">the Chinese University of Hong Kong, Shenzhen</a>.
               </p>
               <p>
-                My research focuses on computer vision and deep learning. I am particularly passionate about neural rendering, in-the-wild 3D reconstruction, and 3D generative modeling. 
+                My research focuses on computer vision and deep learning, and I have a deep passion for AI-powered content creation. My expertise includes 3D generation, 3D reconstruction, Gaussian splatting, neural rendering, and diffusion models.
               </p>
               <p style="text-align:center">
                 <a href="mailto:haoyuwu@cs.stonybrook.edu">Email</a> &nbsp/&nbsp
@@ -45,6 +45,47 @@
           </tr>
         </tbody></table>
         <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+
+          <tr onmouseout="gen3d_stop()" onmouseover="gen3d_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id='gen3d_image'><video  width=160 style="padding: 20px 0 0 0" muted autoplay loop>
+                <source src="images/pikachu.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+                </video></div>
+                <img src='images/pikachu.png' width="160" style="padding: 20px 0 0 0">
+              </div>
+              <script type="text/javascript">
+                function gen3d_start() {
+                  document.getElementById('gen3d_image').style.opacity = "1";
+                }
+
+                function gen3d_stop() {
+                  document.getElementById('gen3d_image').style.opacity = "0";
+                }
+                gen3d_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://hao-yu-wu.github.io/gen3d">
+                <papertitle>Direct and Explicit 3D Generation from a Single Image</papertitle>
+              </a>
+              <br>
+              <strong>Haoyu Wu</strong>,
+              Meher Gitika Karumuri,
+              Chuhang Zou,
+              Seungbae Bang,
+              Yuelong Li,
+              <a href="https://www3.cs.stonybrook.edu/~samaras/">Dimitris Samaras</a>,
+              <a href="https://sunilhadap.github.io/">Sunil Hadap</a>
+              <br>
+							<em>In Submission</em>, 2024
+              <br>
+              <a href="https://hao-yu-wu.github.io/gen3d">project page</a>
+              <p></p>
+              <p>Image-to-3D.</p>
+            </td>
+          </tr> 
 
           <tr onmouseout="ncf_stop()" onmouseover="ncf_start()">
             <td style="padding:20px;width:25%;vertical-align:middle">
