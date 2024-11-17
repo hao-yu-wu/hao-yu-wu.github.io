@@ -47,14 +47,14 @@
         <div class="row mb-3 mt-4">
             <div class="col-md-10 mx-auto text-center">
                 <h1>Direct and Explicit 3D Generation from a Single Image</h1> 
-                <h3 style="color:#5a6268;"> In Submission </h3>
+                <h3 style="color:#5a6268;"> 3DV 2025 </h3>
                 <hr>
                 <h5>
                     <a href="https://hao-yu-wu.github.io/" target="_blank">Haoyu Wu</a>,
-                    <a href="https://hao-yu-wu.github.io/gen3d" target="_blank">Meher Gitika Karumuri</a>,
-                    <a href="https://hao-yu-wu.github.io/gen3d" target="_blank">Chuhang Zou</a>,
-                    <a href="https://hao-yu-wu.github.io/gen3d" target="_blank">Seungbae Bang</a>,
-                    <a href="https://hao-yu-wu.github.io/gen3d" target="_blank">Yuelong Li</a>,
+                    <a href="https://www.amazon.science/author/gitika-karumuri" target="_blank">Meher Gitika Karumuri</a>,
+                    <a href="https://zouchuhang.github.io/" target="_blank">Chuhang Zou</a>,
+                    <a href="https://sites.google.com/view/seungbaebang/home" target="_blank">Seungbae Bang</a>,
+                    <a href="https://scholar.google.com/citations?user=pJdxUEIAAAAJ&hl=en" target="_blank">Yuelong Li</a>,
                     <a href="https://www3.cs.stonybrook.edu/~samaras/" target="_blank">Dimitris Samaras</a>,
                     <a href="https://sunilhadap.github.io/" target="_blank">Sunil Hadap</a>,
                 </h5>
@@ -78,6 +78,38 @@
             </div>
             <p class="text">
                 We compare against baseline methods and shows results of our approach.
+            </p>
+            </div>
+        </div>
+
+        <!-- Abstract -->
+        <div class="row mb-3 pt-2">
+            <div class="col-md-10 mx-auto text-center">
+            <h2>Abstract</h2>
+            <p class="text-justify">
+                Current image-to-3D approaches suffer from high computational costs and lack scalability for high-resolution outputs. In contrast, we introduce a novel framework to directly generate explicit surface geometry and texture using multi-view 2D depth and RGB images along with 3D Gaussian features using a repurposed Stable Diffusion model. We introduce a depth branch into U-Net for efficient and high quality multi-view, cross-domain generation and incorporate epipolar attention into the latent-to-pixel decoder for pixel-level multi-view consistency. By back-projecting the generated depth pixels into 3D space, we create a structured 3D representation that can be either rendered via Gaussian splatting or extracted to high-quality meshes, thereby leveraging additional novel view synthesis loss to further improve our performance. Extensive experiments demonstrate that our method surpasses existing baselines in geometry and texture quality while achieving significantly faster generation time.
+            </p>
+            </div>
+        </div>
+
+        <!-- Method -->
+        <div class="row mb-3 pt-2">
+            <div class="col-md-10 mx-auto text-center">
+            <h2> Method </h2>
+            <img class="img-fluid" width="95%" src="method.png" alt="fea-evo">
+            <p class="text-justify">
+                Our method is a feed-forward image-to-3D model. Given an input image, we generate depth and RGB latent images from six orthographic views via simultaneous multi-view diffusion. The process is conditioned on input latent, input CLIP embedding, and cameras. We incorporate a branched U-Net for efficient and high-quality cross-domain diffusion. For each view, we channel-concatenate depth and RGB latents and decode it to depth, RGB, and Gaussian features in pixel space (512x512 resolution). We add epipolar attention in the decoder, which is crucial for generating pixel-level multi-view consistent depths. We lift our output (RGB and opacity from Gaussians) into 3D space via depth unprojection, creating high-quality textured mesh via Poisson surface reconstruction. Additionally, our lifted surface-aligned 3D Gaussians enable novel view synthesis via Gaussian splatting, allowing additional gradient decent loss from NVS.                
+            </p>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div class="row mb-3 pt-2">
+            <div class="col-md-10 mx-auto text-center">
+            <h2> Results </h2>
+            <img class="img-fluid" width="95%" src="result.png" alt="fea-evo">
+            <p class="text-justify">
+                Qualitative results on GSO dataset. We visualize the input single image and the resulting 3D mesh (with and without textures) for our method and baselines. Our approach achieves higher mesh quality in terms of both geometry and texture.
             </p>
             </div>
         </div>
