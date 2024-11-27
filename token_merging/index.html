@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>Importance-based Token Merging for Diffusion Models</title>
+    <meta name="description" content="Project page for Direct and Explicit 3D Generation from a Single Image">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.1/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/image-compare-viewer/dist/image-compare-viewer.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.3/clipboard.min.js"></script>
+    <script src="https://unpkg.com/image-compare-viewer/dist/image-compare-viewer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        // Download video only when active (speedup website loading & network traffic)
+        $(".carousel").on('slide.bs.carousel', function(ev) {
+            let slides = $(this).find('.carousel-item');
+            let vid = slides[ev.to].querySelectorAll('video')[0];
+            let isPlaying = vid.currentTime > 0 && vid.readyState > 2;
+            if(!isPlaying) {
+                vid.play();
+            }
+        });
+
+        $(window).on('ready load resize', function() {
+            let carousel_width = $(".carousel").width();
+            let carousel_height = 0.7619047619047619 * carousel_width;
+            $(".carousel video").height(carousel_height);
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container" id="main" style="width: 100%; max-width: 1500px;">
+        <!-- title -->
+        <div class="row mb-3 mt-4">
+            <div class="col-md-10 mx-auto text-center">
+                <h1>Importance-based Token Merging for Diffusion Models</h1> 
+                <h3 style="color:#5a6268;"> In Submission </h3>
+                <hr>
+                <h5>
+                    <a href="https://hao-yu-wu.github.io/" target="_blank">Haoyu Wu</a>,
+                    <a href="https://jingyixu.net/" target="_blank">Jingyi Xu</a>,
+                    <a href="https://hieulem.github.io/" target="_blank">Hieu Le</a>,
+                    <a href="https://www3.cs.stonybrook.edu/~samaras/" target="_blank">Dimitris Samaras</a>,
+                </h5>
+                <h5>Stony Brook University</h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-10 mx-auto text-center">
+                <p>
+                    <a class="btn btn-secondary btn-lg" href="https://arxiv.org/abs/2411.16720" role="button">Paper</a>
+                    &nbsp;&nbsp;
+                    <a class="btn btn-secondary btn-lg" href="https://hao-yu-wu.github.io/token_merging/" role="button">Code</a>
+                </p>
+            </div>                        
+        </div>
+
+        <!-- Abstract -->
+        <div class="row mb-3 pt-2">
+            <div class="col-md-10 mx-auto text-center">
+            <h2>Abstract</h2>
+            <p class="text-justify">
+                Diffusion models excel at high-quality image and video generation. However, a major drawback is their high latency. A simple yet powerful way to speed them up is by merging similar tokens for faster computation, though this can result in some quality loss. In this paper, we demonstrate that preserving important tokens during merging significantly improves sample quality. Notably, the importance of each token can be reliably determined using the classifier-free guidance magnitude, as this measure is strongly correlated with the conditioning input and corresponds to output fidelity. Since classifier-free guidance incurs no additional computational cost or requires extra modules, our method can be easily integrated into most diffusion-based frameworks. Experiments show that our approach significantly outperforms the baseline across various applications, including text-to-image synthesis, multi-view image generation, and video generation.
+            </p>
+            </div>
+        </div>
+
+        <!-- Method -->
+        <div class="row mb-3 pt-2">
+            <div class="col-md-10 mx-auto text-center">
+            <h2> Method </h2>
+            <img class="img-fluid" width="95%" src="method.png" alt="fea-evo">
+            <p class="text-justify">
+                <strong>Overview.</strong> We propose an importance-based token merging method. The importance of each token is determined by the magnitude of classifier-free guidance. These scores, visualized with colors ranging from light to dark (indicating less to more important tokens), are used to construct a pool of important tokens. We randomly select a set of destination (<em>dst</em>) tokens from this pool and the remaining important tokens become source (<em>src</em>) tokens. Bipartite soft matching is then performed between the <em>dst</em> tokens and <em>src</em> tokens. <em>src</em> tokens without a suitable match are considered independent tokens (<em>ind.</em>). All other <em>src</em> tokens and unimportant tokens are merged with the destination tokens for subsequent computational steps.
+            </p>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div class="row mb-3 pt-2">
+            <div class="col-md-10 mx-auto text-center">
+            <h2> Results </h2>
+            <img class="img-fluid" width="95%" src="result.png" alt="fea-evo">
+            <p class="text-justify">
+                <strong>Qualitative comparison of text-to-image generation.</strong> The first row shows results from Stable Diffusion (SD), while the subsequent rows show SD combined with various token merging methods including ATC, ToMeSD, and our proposed method. Our approach consistently produces finer details with coherent structures. Note that ATC requires minutes to generate an image, whereas other methods, including ours, complete the task in seconds. The token merging ratio is 0.7. Please refer to the supplementary for detailed prompts. Best viewed with zoom-in for clarity.
+            </p>
+            </div>
+        </div>
+
+        <!-- video -->
+        <div class="row mb-3 pt-2">
+            <div class="col-md-10 mx-auto text-center">
+            <h2> Videos </h2>
+            <div style="position:relative;padding-top:56.25%;">
+                <iframe src="https://www.youtube.com/embed/E6N6jLpBMJg" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+            </div>
+            <p class="text">
+                <strong>Comparison of text-to-video diffusion</strong>.
+            </p>
+            </div>
+        </div>
+
+        <!-- acknowledgement -->
+        <div class="row mb-3 pt-2">
+            <div class="col-md-10 mx-auto">
+                <h2> Acknowledgements </h2>
+                <p class="text-left">
+                    <ul>
+                        <li>This work was supported in part by the NASA Biodiversity Program (Award 80NSSC21K1027), and NSF Grant IIS-2212046.</li>
+                        <li>The website template was borrowed from <a href="https://jonbarron.info/mipnerf360/">Mip-NeRF 360</a> and <a href="https://lioryariv.github.io/volsdf/">VolSDF</a>.</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+<script>
+    const viewers = document.querySelectorAll(".image-compare");
+    viewers.forEach((element) => {
+        let view = new ImageCompare(element, {
+            hoverStart: true,
+            addCircle: true
+        }).mount();
+    });
+
+    $(document).ready(function () {
+        var editor = CodeMirror.fromTextArea(document.getElementById("bibtex"), {
+            lineNumbers: false,
+            lineWrapping: true,
+            readOnly: true
+        });
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    });
+</script>
+
+</html>
