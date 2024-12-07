@@ -14,7 +14,9 @@
   <table style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
     <tr style="padding:0px">
       <td style="padding:0px">
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+
+        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+          <tbody>
           <tr style="padding:0px">
             <td style="padding:2.5%;width:63%;vertical-align:middle">
               <p style="text-align:center">
@@ -36,21 +38,27 @@
               <a href="images/me.jpg"><img style="width:100%;max-width:100%" alt="profile photo" src="images/me.jpg" class="hoverZoomLink"></a>
             </td>
           </tr>
-        </tbody></table>
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+          </tbody>
+        </table>
+        
+        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+          <tbody>
             <tr>
             <td style="padding:20px;width:100%;vertical-align:middle">
               <heading>Research</heading>
             </td>
           </tr>
-        </tbody></table>
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+          </tbody>
+        </table>
+        
+        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+          <tbody>
 
           <tr>
-            <td style="padding:20px;width:25%;vertical-align:middle">
-              <img src="token_merging/teaser_haoyu.png" alt="hps" width="170" style="border-style: none">
+            <td style="padding:16px;width:20%;vertical-align:middle">
+              <img src="token_merging/teaser_haoyu.png" alt="hps" width="160" style="border-style: none">
             </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
+            <td style="padding:8px;width:80%;vertical-align:middle">
               <a href="https://hao-yu-wu.github.io/token_merging">
                 <papertitle>	
                   Importance-based Token Merging for Diffusion Models</papertitle>
@@ -70,13 +78,13 @@
           </tr> 
 
           <tr onmouseout="gen3d_stop()" onmouseover="gen3d_start()" bgcolor="#ffffd0">
-            <td style="padding:20px;width:25%;vertical-align:middle">
+            <td style="padding:16px;width:20%;vertical-align:middle">
               <div class="one">
-                <div class="two" id='gen3d_image'><video  width=170 style="padding: 0px 0 0 0" muted autoplay loop>
+                <div class="two" id='gen3d_image' style="opacity: 0;"><video width="100%" height="100%" muted="" autoplay="" loop="">
                 <source src="images/pikachu.mp4" type="video/mp4">
                 Your browser does not support the video tag.
                 </video></div>
-                <img src='images/pikachu.png' width="170" style="padding: 0px 0 0 0">
+                <img src='images/pikachu.png' width="160">
               </div>
               <script type="text/javascript">
                 function gen3d_start() {
@@ -89,7 +97,7 @@
                 gen3d_stop()
               </script>
             </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
+            <td style="padding:8px;width:80%;vertical-align:middle">
               <a href="https://hao-yu-wu.github.io/gen3d">
                 <papertitle>Direct and Explicit 3D Generation from a Single Image</papertitle>
               </a>
@@ -112,10 +120,10 @@
           </tr> 
 
           <tr>
-            <td style="padding:20px;width:25%;vertical-align:middle">
-              <img src="images/MLI-NeRF.png" alt="hps" width="170" style="border-style: none">
+            <td style="padding:16px;width:20%;vertical-align:middle">
+              <img src="images/MLI-NeRF.png" alt="hps" width="160" style="border-style: none">
             </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
+            <td style="padding:8px;width:80%;vertical-align:middle">
               <papertitle>MLI-NeRF: Multi-Light Intrinsic-Aware Neural Radiance Fields</papertitle>
               <br>
               Yixiong Yang, Shilin Hu, <strong>Haoyu Wu</strong>, Ramon Baldrich, Dimitris Samaras, Maria Vanrell
@@ -131,13 +139,13 @@
           </tr> 
 
           <tr onmouseout="ncf_stop()" onmouseover="ncf_start()" bgcolor="#ffffd0">
-            <td style="padding:20px;width:25%;vertical-align:middle">
+            <td style="padding:16px;width:20%;vertical-align:middle">
               <div class="one">
-                <div class="two" id='ncf_image'><video  width=170 style="padding: 10px 0 0 0" muted autoplay loop>
+                <div class="two" id='ncf_image' style="opacity: 0;"><video width="100%" height="100%" muted="" autoplay="" loop="">
                 <source src="images/ncf_after_82.mp4" type="video/mp4">
                 Your browser does not support the video tag.
                 </video></div>
-                <img src='images/ncf_before_82.png' width="170" style="padding: 10px 0 0 0">
+                <img src='images/ncf_before_82.png' width="160" style="padding: 20px 0 0 0">
               </div>
               <script type="text/javascript">
                 function ncf_start() {
@@ -150,7 +158,7 @@
                 ncf_stop()
               </script>
             </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
+            <td style="padding:8px;width:80%;vertical-align:middle">
               <a href="https://hao-yu-wu.github.io/s-volsdf">
                 <papertitle>S-VolSDF: Sparse Multi-View Stereo Regularization of Neural Implicit Surfaces</papertitle>
               </a>
@@ -168,10 +176,10 @@
           </tr> 
 
           <tr>
-            <td style="padding:20px;width:25%;vertical-align:middle">
-              <img src="images/HERN.png" alt="hps" width="170" style="border-style: none">
+            <td style="padding:16px;width:20%;vertical-align:middle">
+              <img src="images/HERN.png" alt="hps" width="160" style="border-style: none">
             </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
+            <td style="padding:8px;width:80%;vertical-align:middle">
               <papertitle>HighEr-Resolution Network for Image Demosaicing and Enhancing</papertitle>
               <br>
               <a href="https://kfmei.page/">Kangfu Mei</a>,
@@ -191,8 +199,11 @@
             </td>
           </tr> 
 					
-        </tbody></table>
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+          </tbody>
+        </table>
+        
+        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+          <tbody>
           <tr>
             <td style="padding:0px">
               <br>
@@ -201,7 +212,9 @@
               </p>
             </td>
           </tr>
-        </tbody></table>
+          </tbody>
+        </table>
+        
       </td>
     </tr>
   </table>
