@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>One Attention, One Scale: Phase-Aligned Rotary Positional Embeddings for Mixed-Resolution Diffusion Transformer</title>
+    <meta name="description" content="Project page for Phase-Aligned Rotary Positional Embeddings for Mixed-Resolution Diffusion Transformer">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.1/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/image-compare-viewer/dist/image-compare-viewer.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.3/clipboard.min.js"></script>
+    <script src="https://unpkg.com/image-compare-viewer/dist/image-compare-viewer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        // Download video only when active (speedup website loading & network traffic)
+        $(".carousel").on('slide.bs.carousel', function(ev) {
+            let slides = $(this).find('.carousel-item');
+            let vid = slides[ev.to].querySelectorAll('video')[0];
+            let isPlaying = vid.currentTime > 0 && vid.readyState > 2;
+            if(!isPlaying) {
+                vid.play();
+            }
+        });
+
+        $(window).on('ready load resize', function() {
+            let carousel_width = $(".carousel").width();
+            let carousel_height = 0.7619047619047619 * carousel_width;
+            $(".carousel video").height(carousel_height);
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container" id="main" style="width: 100%; max-width: 2700px;">
+        <!-- title -->
+        <div class="row mb-3 mt-4">
+            <div class="col-md-10 mx-auto text-center">
+                <h1>One Attention, One Scale: <br> Phase-Aligned Rotary Positional Embeddings for <br> Mixed-Resolution Diffusion Transformer</h1> 
+                <h3 style="color:#5a6268;"> In submission </h3>
+                <hr>
+                <h5>
+                    <a href="https://hao-yu-wu.github.io/" target="_blank">Haoyu Wu</a><sup>1</sup>,
+                    <a href="https://jingyixu.net/" target="_blank">Jingyi Xu</a><sup>1</sup>,
+                    <a href="https://qiaomu-miao.github.io/" target="_blank">Qiaomu Miao</a><sup>1</sup>,
+                    <a href="https://www3.cs.stonybrook.edu/~samaras/" target="_blank">Dimitris Samaras</a><sup>1</sup>,
+                    <a href="https://hieulem.github.io/" target="_blank">Hieu Le</a><sup>2</sup>
+                </h5>
+
+                <h5>
+                    <sup>1</sup>Stony Brook University &nbsp;&nbsp;&nbsp;
+                    <sup>2</sup>UNC-Charlotte
+                </h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-10 mx-auto text-center">
+                <p>
+                    <a class="btn btn-secondary btn-lg" href="arxiv.pdf" role="button">Paper</a>
+                    &nbsp;&nbsp;
+                    <a class="btn btn-secondary btn-lg" href="https://hao-yu-wu.github.io/" role="button">Code</a>
+                </p>
+            </div>                        
+        </div>
+
+        <!-- Abstract -->
+        <div class="row mb-3 pt-2">
+            <div class="col-md-10 mx-auto text-center">
+            <h2>Abstract</h2>
+            <p class="text-justify">
+                We identify a core failure mode that occurs when using the usual linear interpolation on rotary positional embeddings (RoPE) for mixed-resolution denoising with Diffusion Transformers. 
+                When tokens from different spatial grids are mixed, the attention mechanism collapses. The issue is structural. Linear coordinate remapping forces a single attention head to compare RoPE phases sampled at incompatible rates, creating phase aliasing that destabilizes the score landscape. Pretrained DiTs are especially brittle—many heads exhibit extremely sharp, periodic phase selectivity—so even tiny cross-rate inconsistencies reliably cause blur, artifacts, or full collapse.
+                <br>
+                To this end, our main contribution is Cross-Resolution Phase-Aligned Attention (CRPA), a training-free drop-in fix that eliminates this failure at its source. 
+                CRPA modifies only the RoPE index map for each attention call: all Q/K positions are expressed on the query's stride so that equal physical distances always induce identical phase increments. This restores the precise phase patterns that DiTs rely on. CRPA is fully compatible with pretrained DiTs, stabilizes all heads and layers uniformly.
+                We demonstrate that CRPA enables high-fidelity and efficient mixed-resolution generation, outperforming previous state-of-the-art methods on image and video generation.                
+            </p>
+            </div>
+        </div>
+
+        <!-- Method -->
+        <div class="row mb-3 pt-2">
+            <div class="col-md-10 mx-auto text-center">
+            <h2> Why RoPE Interpolation Fails in Mixed-Resolution Denoising </h2>
+            <img class="img-fluid" width="100%" src="curve.png" alt="fea-evo">
+            <p class="text-justify">
+            <strong>Attention Scores vs. RoPE relative distance Δ.</strong> 
+            Mean normalized scores κ(Δ) on Wan model across diffusion steps 
+            t ∈ {428, 749, 922}. For each axis (time, height, width), curves are averaged over all 
+            attention heads and over RoPE-dominant heads, where RoPE dominance is defined by a 
+            head-level RoPE-dominance score (rds); heads with rds &gt; 0.085 are classified as 
+            RoPE-dominant. The relative distance Δ denotes token offsets along the corresponding axis. 
+            We observe (i) strong periodicity with a sharp global maximum near Δ ≈ 0, (ii) amplification 
+            in RoPE-dominant heads, and (iii) stability across timesteps, suggesting a pretrained phase prior.
+            </p>
+            </div>
+        </div>
+
+        <div class="row mb-3 pt-2">
+            <div class="col-md-10 mx-auto text-center">
+            <h2> Method </h2>
+            <img class="img-fluid" width="40%" src="method.png" alt="fea-evo">
+            <p class="text-justify">
+            <strong>Cross-Resolution Phase-Aligned Attention (CRPA).</strong> For each attention call, 
+            RoPE indices of keys are rescaled onto the query grid so that equal physical distances yield 
+            identical phase increments, eliminating cross-rate aliasing and enabling stable mixed-resolution 
+            denoising with arbitrary LR/HR layouts.
+            </p>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div class="row mb-3 pt-2">
+            <div class="col-md-10 mx-auto text-center">
+            <h2> Results </h2>
+
+            <div style="position:relative;padding-top:56.25%;">
+                <iframe src="https://www.youtube.com/embed/sGLLI1guFek" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+            </div>
+            <p class="text">
+                <strong>Text-to-video generation with Wan2.1-1.3B.</strong>
+            </p>
+            <!-- <br> -->
+
+            <img class="img-fluid" width="100%" src="flux.png" alt="fea-evo">
+            <p class="text">
+                <strong>Mixed-resolution image generation with FLUX.1-dev.</strong>
+            </p>
+
+            </div>
+        </div>
+
+        <!-- acknowledgement -->
+        <div class="row mb-3 pt-2">
+            <div class="col-md-10 mx-auto">
+                <h2> Acknowledgements </h2>
+                <p class="text-left">
+                    <ul>
+                        <li>We are grateful to <a href="https://openreview.net/profile?id=~Meher_Gitika_Karumuri1" target="_blank">Meher Gitika Karumuri</a>,
+                            <a href="https://pages.cs.wisc.edu/~bmsmith/" target="_blank">Brandon Smith</a>,
+                            <a href="https://www.linkedin.com/in/amogh112" target="_blank">Amogh Gupta</a>,
+                            and <a href="https://vid8687.github.io/" target="_blank">Vidya Narayanan</a> 
+                            for their insightful comments and valuable discussions. This work was supported in part by NSF grants IIS-2123920 and IIS-2212046.</li>
+                        <li>The website template was borrowed from <a href="https://jonbarron.info/mipnerf360/">Mip-NeRF 360</a> and <a href="https://lioryariv.github.io/volsdf/">VolSDF</a>.</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+<script>
+    const viewers = document.querySelectorAll(".image-compare");
+    viewers.forEach((element) => {
+        let view = new ImageCompare(element, {
+            hoverStart: true,
+            addCircle: true
+        }).mount();
+    });
+
+    $(document).ready(function () {
+        var editor = CodeMirror.fromTextArea(document.getElementById("bibtex"), {
+            lineNumbers: false,
+            lineWrapping: true,
+            readOnly: true
+        });
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    });
+</script>
+
+</html>
